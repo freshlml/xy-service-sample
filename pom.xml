@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.fresh.xy</groupId>
+        <artifactId>fresh-xy-starter</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>com.fresh.xy</groupId>
+    <artifactId>xy-service-sample</artifactId>
+    <!-- 随着项目版本号的变动而变动 -->
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>xy-service-sample</name>
+    <description>xy-service-sample</description>
+    <url>https://www.github.com/freshlml/xy-service-sample</url>
+    <scm>
+        <url>https://www.github.com/freshlml/xy-service-sample</url>
+    </scm>
+
+    <properties>
+        <!-- xy-service-sample-api版本号 -->
+        <xy-service-sample-api.version>1.0.0</xy-service-sample-api.version>
+        <!-- xy-service-sample2-api版本号 -->
+        <xy-service-sample2-api.version>1.0.0</xy-service-sample2-api.version>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <!-- xy-common -->
+        <dependency>
+            <groupId>com.fresh.xy</groupId>
+            <artifactId>xy-common</artifactId>
+        </dependency>
+        <!-- mybatisplus-starter -->
+        <dependency>
+            <groupId>com.fresh.xy</groupId>
+            <artifactId>xy-mybatisplus-starter</artifactId>
+        </dependency>
+        <!-- redis-starter -->
+        <dependency>
+            <groupId>com.fresh.xy</groupId>
+            <artifactId>xy-redis-starter</artifactId>
+        </dependency>
+        <!-- rmq-starter -->
+        <dependency>
+            <groupId>com.fresh.xy</groupId>
+            <artifactId>xy-rmq-starter</artifactId>
+        </dependency>
+
+        <!-- xy-service-sample-api -->
+        <dependency>
+            <groupId>com.fresh.xy</groupId>
+            <artifactId>xy-service-sample-api</artifactId>
+            <version>${xy-service-sample-api.version}</version>
+        </dependency>
+        <!-- xy-service-sample2-api -->
+        <dependency>
+            <groupId>com.fresh.xy</groupId>
+            <artifactId>xy-service-sample2-api</artifactId>
+            <version>${xy-service-sample2-api.version}</version>
+        </dependency>
+
+        <!-- spring boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- mvc -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- nacos -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <!-- netflix hystrix -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        <!-- netflix hystrix dashboard -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+        </dependency>
+        <!-- netflix ribbon -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </dependency>
+        <!-- sleuth -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        <!-- spring retry -->
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
