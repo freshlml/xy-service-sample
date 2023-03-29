@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("/sampleScan/")
+@RequestMapping("sampleScan")
 public class SampleScanController {
     
     @Autowired
@@ -39,20 +39,20 @@ public class SampleScanController {
     private Sample2ServiceApi sample2ServiceApi;
 
     @PostMapping("save")
-    public JsonResult save(@RequestBody @Valid SampleScanAddDto scanDto) {
+    public JsonResult<?> save(@RequestBody @Valid SampleScanAddDto scanDto) {
         SampleScan scan = SampleScan.builder().build().setName(scanDto.getName()).setScanType(scanDto.getScanType()).setScanTime(scanDto.getScanTime());
         sampleScanService.save(scan);
         return JsonResult.buildSuccessResult("保存成功");
     }
 
     @PostMapping("del")
-    public JsonResult del(@RequestBody @Valid SampleScanDelDto scan) {
+    public JsonResult<?> del(@RequestBody @Valid SampleScanDelDto scan) {
         sampleScanService.removeById(scan.getId());
         return JsonResult.buildSuccessResult("删除成功");
     }
 
     @PostMapping("update")
-    public JsonResult update(@RequestBody @Valid SampleScanUpdateDto scanDto) {
+    public JsonResult<?> update(@RequestBody @Valid SampleScanUpdateDto scanDto) {
         SampleScan scan = SampleScan.builder().build().setName(scanDto.getName()).setScanType(scanDto.getScanType()).setScanTime(scanDto.getScanTime());
         scan.setId(scanDto.getId());
         sampleScanService.updateById(scan);
@@ -60,7 +60,7 @@ public class SampleScanController {
     }
 
     @GetMapping("getById")
-    public JsonResult getById(Long id) {
+    public JsonResult<SampleScanVo> getById(Long id) {
         //AssertUtils.notNull(id, () -> "id不能为空", () -> JsonResultEnum.FAIL.getCode());
         SampleScan scan = sampleScanService.getById(id);
         SampleScanVo scanVo = null;
@@ -73,7 +73,7 @@ public class SampleScanController {
     }
 
     @GetMapping("getByIds")
-    public JsonResult getByIds(@RequestParam(name = "ids", required = false) List<Long> ids) {
+    public JsonResult<List<SampleScanVo>> getByIds(@RequestParam(name = "ids", required = false) List<Long> ids) {
         List<SampleScanVo> result = null;
         if(ids != null && !ids.isEmpty()) {
             List<SampleScan> scanResult = sampleScanService.list(new QueryWrapper<SampleScan>().lambda().select(SampleScan::getId, SampleScan::getName, SampleScan::getScanTime, SampleScan::getScanType).in(SampleScan::getId, ids));
@@ -82,11 +82,10 @@ public class SampleScanController {
         return JsonResult.buildSuccessResult(result);
     }
 
-    //compare with listByPojo
     @GetMapping("listByParams")
-    public JsonResult listByParams(@RequestParam(name = "id", required = false) Long id,
-                                   @RequestParam(name = "scanType", required = false) ScanTypeEnum scanType,  //String convert to Enum, 使用默认的StringCovertToEnum
-                                   @RequestParam(name = "scanTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime scanTime, //String covert to LocalDateTime，String转化为LocalDateTime，默认的String格式是iso格式
+    public JsonResult<PageJsonResultVo<SampleScanVo>> listByParams(@RequestParam(name = "id", required = false) Long id,
+                                   @RequestParam(name = "scanType", required = false) ScanTypeEnum scanType, //ScanTypeEnum.valueOf("SYSTEM")，根据name(而不是ScanTypeEnum.value)获取实例
+                                   @RequestParam(name = "scanTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime scanTime,
                                    @RequestParam(name = "page", required = false) Long page,
                                    @RequestParam(name = "pageSize", required = false) Long pageSize) {
 
@@ -95,80 +94,53 @@ public class SampleScanController {
         scanSelDto.setPageSize(pageSize);
         IPage<SampleScanVo> result = sampleScanService.listByPojo(scanSelDto);
 
-        return JsonResult.buildSuccessResult(result);
+        return JsonResult.buildSuccessResult(MybatisPlusPageUtils.pageJsonResultVo(result));
     }
 
-    /**
-     * Get请求的Enum中@JsonCreator
-     * @param scanSelDto 如果未传PageDto.page或者PageDto.pageSize，取PageDto的默认值
-     *                   如果PageDto.page<=0，最终的sql当作0，表示第一页
-     *                   如果PageDto.pageSize<0, exception
-     * @return
-     */
     @GetMapping("listByPojo")
-    public JsonResult listByPojo(SampleScanSelDto scanSelDto) {
+    public JsonResult<PageJsonResultVo<SampleScanVo>> listByPojo(SampleScanSelDto scanSelDto) { //scanSelDto中scanType字段: ScanTypeEnum.valueOf("SYSTEM")，根据name(而不是ScanTypeEnum.value)获取实例
         AssertUtils.notNull(scanSelDto, () -> "查询参数不能为空", () -> JsonResultEnum.FAIL.getCode());
         AssertUtils.ifTrue(scanSelDto.getPageSize()<0, () -> "pageSize不能为负数", () -> JsonResultEnum.FAIL.getCode());
 
-        /*
-         * when ScanSelDto.id=null then sql: id = null
-         * when ScanSelDto.name=null then sql: name like %null%
-         * when ScanSelDto.scanType=null then sql: scan_type = null
-         * when ScanSelDto.scanTime=null then sql: scan_time > null
-         */
-        /*IPage<Scan> result = scanService.page(scanSelDto.buildPage(Scan.class),
-                new QueryWrapper<Scan>().lambda().select(Scan::getId, Scan::getName, Scan::getScanTime, Scan::getScanType)
-                        .eq(Scan::getId, scanSelDto.getId())
-                        .like(Scan::getName, scanSelDto.getName())
-                        .eq(Scan::getScanType, scanSelDto.getScanType())
-                        .gt(Scan::getScanTime, scanSelDto.getScanTime()));*/
-
         IPage<SampleScanVo> result = sampleScanService.listByPojo(scanSelDto);
 
-        return JsonResult.buildSuccessResult(result);
+        return JsonResult.buildSuccessResult(MybatisPlusPageUtils.pageJsonResultVo(result));
     }
 
-    /**
-     * compare with listByPojo, Get请求将参数放在请求体，使用@RequestBody解析请求体参数
-     * @param scanSelDto
-     * @return
-     */
+    //Get请求中，将参数放在请求体中传递
     @GetMapping("listByPojo2")
-    public JsonResult listByPojo2(@RequestBody SampleScanSelDto scanSelDto) {
+    public JsonResult<PageJsonResultVo<SampleScanVo>> listByPojo2(@RequestBody SampleScanSelDto scanSelDto) {
         AssertUtils.notNull(scanSelDto, () -> "查询参数不能为空", () -> JsonResultEnum.FAIL.getCode());
         AssertUtils.ifTrue(scanSelDto.getPageSize()<0, () -> "pageSize不能为负数", () -> JsonResultEnum.FAIL.getCode());
         IPage<SampleScanVo> result = sampleScanService.listByPojo(scanSelDto);
 
-        return JsonResult.buildSuccessResult(result);
+        return JsonResult.buildSuccessResult(MybatisPlusPageUtils.pageJsonResultVo(result));
     }
 
-    /**
-     *
-     * @param pageDto  如果未传PageDto.page或者PageDto.pageSize，取PageDto的默认值
-     *                 如果PageDto.page<=0，最终的sql当作0，表示第一页
-     *                 如果PageDto.pageSize<0, exception
-     * @return
-     */
+
     @GetMapping("list")
-    public JsonResult list(PageDto pageDto) {
+    public JsonResult<PageJsonResultVo<SampleScan>> list(PageDto pageDto) {
         AssertUtils.notNull(pageDto, () -> "分页参数不能为空", () -> JsonResultEnum.FAIL.getCode());
         AssertUtils.ifTrue(pageDto.getPageSize()<0, () -> "pageSize不能为负数", () -> JsonResultEnum.FAIL.getCode());
 
         IPage<SampleScan> pageParam = MybatisPlusPageUtils.mybatisPlusPage(pageDto);
         IPage<SampleScan> result = sampleScanService.page(pageParam);
 
-        return JsonResult.buildSuccessResult(result);
+        return JsonResult.buildSuccessResult(MybatisPlusPageUtils.pageJsonResultVo(result));
     }
 
     @GetMapping("listAll")
-    public JsonResult listAll() {
+    public JsonResult<List<SampleScanVo>> listAll() {
         List<SampleScan> scanResult = sampleScanService.list();
         List<SampleScanVo> result = scanResult.stream().map(scan -> SampleScanVo.builder().id(scan.getId()).name(scan.getName()).scanType(scan.getScanType()).scanTime(scan.getScanTime()).createTime(scan.getCreateTime()).modifyTime(scan.getModifyTime()).build()).collect(Collectors.toList());
 
         return JsonResult.buildSuccessResult(result);
     }
 
-    //rpc from service-sample2
+
+
+    /*rpc调用 service-sample2*/
+
     @GetMapping("getByIdFromSample2")
     public JsonResult getByIdFromSample2(Long id) {
         JsonResult<Sample2ScanBo> result = sample2ServiceApi.getById(id);

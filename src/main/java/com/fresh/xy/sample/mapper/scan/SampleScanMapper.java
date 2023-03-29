@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fresh.xy.sample.dto.scan.SampleScanSelDto;
 import com.fresh.xy.sample.entity.scan.SampleScan;
 import com.fresh.xy.sample.vo.scan.SampleScanVo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface SampleScanMapper extends BaseMapper<SampleScan> {
 
     IPage<SampleScanVo> selectByPojo(IPage<SampleScanVo> page, @Param("scanSelDto") SampleScanSelDto scanSelDto);

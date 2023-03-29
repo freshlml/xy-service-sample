@@ -16,12 +16,11 @@ public class SampleScanAddDto {
 
     @NotBlank(message = "name不能为空")
     private String name;
-    @NotNull(message = "scanType不能为空")
+    @NotNull(message = "scanType不能为空或者scanType值不合法")
     private ScanTypeEnum scanType;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @NotNull(message = "scanTime不能为空")
     private LocalDateTime scanTime;
-
 
 }
