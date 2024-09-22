@@ -21,7 +21,7 @@ import java.util.List;
 public class ScanUpdateMessageListener implements MessageListenerConcurrently {
     private Logger log = LoggerFactory.getLogger(ScanUpdateMessageListener.class);
 
-    @Autowired
+    //@Autowired
     private FlCustomSerializer flCustomSerializer;
 
     @Autowired

@@ -24,7 +24,7 @@ public class ScanTxMQListener implements TransactionListener {
     @Autowired
     private SampleScanService sampleScanService;
 
-    @Autowired
+    //@Autowired
     private RmqTxService rmqTxService;
 
     @Transactional

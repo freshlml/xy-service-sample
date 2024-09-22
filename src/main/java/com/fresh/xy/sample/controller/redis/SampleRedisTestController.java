@@ -30,21 +30,21 @@ import java.util.Map;
 @RequestMapping("/sampleRedisTest/")
 public class SampleRedisTestController {
 
-    @Autowired
+    //@Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    @Autowired
+    //@Autowired
     private RedisTemplate<String, Number> numberRedisTemplate;
 
     //@Autowired
     //private RedisTemplate<String, String> stringRedisTemplate;
-    @Autowired
+    //@Autowired
     private RedisTemplate<String, String> customRedisTemplate;
 
-    @Autowired
+    //@Autowired
     private FlCustomSerializer flCustomSerializer;
 
-    @Autowired
+    //@Autowired
     private RedisTemplate<String, byte[]> genericRedisTemplate;
 
 
@@ -234,7 +234,7 @@ public class SampleRedisTestController {
      *   a、ObjectMapper反序列化时调用的是 Object obj = readValue(..., Object.class)，内部将使用UntypedObjectDeserializer反序列化器，该反序列化器
      *     表现不尽如人意(因为不知道具体的类型，所以没办法准确的反序列成对应的对象)，如一个json对象串返回LinkedHashMap,小数返回Double而丢失精度等
      *   b、设置objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);从而将对象类型信息保存到序列化的字符串中
-     *     存储格式，反序列化的表现 {@link FlSerializeTest}
+     *     存储格式，反序列化的表现 {@link FlSerializeTest}. 写入类型信息的弊端: 当类型的 qualified name 变化时，已保存的数据直接不可用...
      *
      *
      */

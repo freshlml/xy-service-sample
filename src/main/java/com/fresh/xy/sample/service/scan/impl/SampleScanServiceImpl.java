@@ -39,20 +39,20 @@ public class SampleScanServiceImpl extends ServiceImpl<SampleScanMapper, SampleS
     @Autowired
     private Sample2ServiceApi sample2ServiceApi;
 
-    @Autowired
+    //@Autowired
     private FlRmqProperties flRmqProperties;
 
-    @Autowired
+    //@Autowired
     private FlCustomSerializer flCustomSerializer;
 
-    @Autowired
+    //@Autowired
     private DefaultMQProducer defaultMQProducer; //默认 Producer
 
     @Lazy
     @Autowired
     private DefaultMQProducer otherMQProducer;  //自定义 Producer
 
-    @Autowired
+    //@Autowired
     private TransactionMQProducer defaultTxMQProducer; //默认 tx Producer
 
     @Lazy

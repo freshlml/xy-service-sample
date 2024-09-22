@@ -27,10 +27,10 @@ import java.util.Map;
 /*@RefreshScope*/
 public class RedissonClientTestController {
 
-    @Autowired
+    //@Autowired
     private RedissonClient redissonClient;
 
-    @Autowired
+    //@Autowired
     private RedissonReactiveClient redissonReactiveClient;
 
     /*@Value("${default.data}")

@@ -21,7 +21,7 @@ public class ScanRmqTxListenerServiceImpl implements RmqTxListenerService<ScanRm
     @Autowired
     private SampleScanService sampleScanService;
 
-    @Autowired
+    //@Autowired
     private RmqTxService rmqTxService;
 
     @Transactional

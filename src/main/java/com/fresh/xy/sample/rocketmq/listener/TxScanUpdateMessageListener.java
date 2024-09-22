@@ -25,13 +25,13 @@ import java.util.List;
 public class TxScanUpdateMessageListener implements MessageListenerConcurrently {
     private Logger log = LoggerFactory.getLogger(TxScanUpdateMessageListener.class);
 
-    @Autowired
+    //@Autowired
     private FlCustomSerializer flCustomSerializer;
 
     @Autowired
     private SampleScanService sampleScanService;
 
-    @Autowired
+    //@Autowired
     private RmqTxService rmqTxService;
 
     @Override

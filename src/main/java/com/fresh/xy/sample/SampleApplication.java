@@ -11,7 +11,7 @@ import org.springframework.retry.annotation.EnableRetry;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScan({"com.fresh.xy.sample", "com.fresh.common", "com.fresh.xy.common", "com.fresh.xy.redis", "com.fresh.xy.rmq", "com.fresh.xy.sample2.api"})
+@ComponentScan({"com.fresh.xy.sample", "com.fresh.common", "com.fresh.xy.common", /*"com.fresh.xy.redis",*/ /*"com.fresh.xy.rmq",*/ "com.fresh.xy.sample2.api"})
 @EnableCircuitBreaker
 @EnableHystrixDashboard
 @EnableFeignClients({"com.fresh.xy.sample2.api"})

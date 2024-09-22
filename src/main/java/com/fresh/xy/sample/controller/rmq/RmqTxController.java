@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("rmqTx")
 public class RmqTxController {
 
-    @Autowired
+    //@Autowired
     private RmqTxService rmqTxService;
 
     @GetMapping("list")
