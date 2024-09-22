@@ -23,7 +23,7 @@ public class SampleScanApiController {
     private SampleScanService sampleScanService;
 
     @GetMapping("getById")
-    public JsonResult getByIdRpc(@RequestParam(name = "id", required = false) Long id) {
+    public JsonResult<SampleScanBo> getByIdRpc(@RequestParam(name = "id", required = false) Long id) {
 
         SampleScan scan = sampleScanService.getById(id);
         SampleScanBo scanBo = null;
