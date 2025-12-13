@@ -18,7 +18,7 @@ import org.springframework.retry.annotation.EnableRetry;
 @EnableRetry
 public class SampleApplication {
 
-    public static void main(String argv[]) {
+    public static void main(String[] argv) {
         SpringApplication.run(SampleApplication.class, argv);
     }
 }

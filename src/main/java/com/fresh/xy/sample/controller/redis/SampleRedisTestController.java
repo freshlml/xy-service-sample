@@ -47,6 +47,7 @@ public class SampleRedisTestController {
     //@Autowired
     private RedisTemplate<String, byte[]> genericRedisTemplate;
 
+////一般而言，选择不写入类型信息，这样 RedisTemplate<String, Object> 在取值发序列化时就存在无法得到所需类型的情况（这种情况是好解决的）
 
     /**
      * 一种操作方法即
