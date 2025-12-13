@@ -36,14 +36,14 @@ public class TxTestOneServiceImpl extends ServiceImpl<TxTestOneMapper, TxTestOne
 
         //1. 调用目标方法，该方法上声明了 @Transactional with propagation = Propagation.REQUIRED, 目标方法未抛出异常
         /*
-        test_transactional方法上@Transactional前置处理：开启“事务”
-        test_transactional执行... 如果发生异常，test_transactional上@Transactional后置处理：执行rollback；否则
-        调用method_required方法:
-            method_required方法上@Transactional前置处理：Participating in existing transaction
-            method_required方法代码执行，没有抛出异常
-            method_required方法上@Transactional后置处理：do nothing
-        test_transactional执行... 如果发生异常, test_transactional上@Transactional后置处理：执行rollback；否则
-        test_transactional方法上@Transactional后置处理: 执行commit
+        test_required 方法上 @Transactional 前置处理：开启“事务”
+        test_required 执行... 如果发生异常，test_transactional 上 @Transactional 后置处理：执行 rollback；否则
+        调用 method_required 方法:
+            method_required 方法上 @Transactional 前置处理：Participating in existing transaction
+            method_required 方法代码执行，没有抛出异常
+            method_required 方法上 @Transactional 后置处理：do nothing
+        test_required 执行 ... 如果发生异常, test_required 上 @Transactional 后置处理：执行 rollback；否则
+        test_required 方法上 @Transactional 后置处理: 执行 commit
          */
         txTestTwoService.method_required();
 
@@ -59,14 +59,14 @@ public class TxTestOneServiceImpl extends ServiceImpl<TxTestOneMapper, TxTestOne
 
         //2. 调用目标方法，该方法上声明了 @Transactional with propagation = Propagation.REQUIRED, 目标方法抛出异常
         /*
-        test_transactional方法上@Transactional前置处理：开启“事务”
-        test_transactional执行... 如果发生异常，test_transactional上@Transactional后置处理：执行rollback；否则
-        调用method_required_e方法:
-            method_required_e方法上@Transactional前置处理：Participating in existing transaction
-            method_required_e方法代码执行，抛出"异常1"
-            method_required_e方法上@Transactional后置处理：Participating transaction failed - marking existing transaction as rollback-only, 并抛出"异常1"
-        如果test_transactional不捕获"异常1", "异常1"向上抛，test_transactional方法上@Transactional后置处理：执行rollback并且抛出"异常1"
-        如果test_transactional捕获"异常1", test_transactional方法上@Transactional后置处理：执行commit，由于”事务“有rollback-only标记，会执行rollback并且抛出"异常2"
+        test_required_e 方法上 @Transactional 前置处理：开启“事务”
+        test_required_e 执行... 如果发生异常，test_required_e 上 @Transactional 后置处理：执行 rollback；否则
+        调用 method_required_e 方法:
+            method_required_e 方法上 @Transactional 前置处理：Participating in existing transaction
+            method_required_e 方法代码执行，抛出"异常1"
+            method_required_e 方法上 @Transactional 后置处理：Participating transaction failed - marking existing transaction as rollback-only, 并抛出"异常1"
+        如果 test_required_e 不捕获"异常1", "异常1"向上抛，test_required_e 方法上 @Transactional 后置处理：执行 rollback 并且抛出"异常1"
+        如果 test_required_e 捕获"异常1", test_required_e 方法上 @Transactional 后置处理：执行 commit，由于”事务“有 rollback-only 标记，会执行 rollback 并且抛出"异常2"
          */
         txTestTwoService.method_required_e();
 
@@ -82,14 +82,14 @@ public class TxTestOneServiceImpl extends ServiceImpl<TxTestOneMapper, TxTestOne
 
         //3. 调用目标方法，该方法上声明了 @Transactional with propagation = Propagation.REQUIRES_NEW, 目标方法未抛出异常
         /*
-        test_transactional方法上@Transactional前置处理：开启“事务”
-        test_transactional方法执行..., 如果发生异常，test_transactional方法上@Transactional后置处理：执行rollback
-        调用method_requiredNew方法：
-            method_requiredNew方法上@Transactional前置处理：Suspending current transaction, creating new transaction
-            method_requiredNew方法代码执行，没有抛出异常
-            method_requiredNew方法上@Transactional后置处理：执行commit
-        test_transactional方法执行... 如果发生异常, test_transactional方法上@Transactional后置处理：执行rollback
-        test_transactional方法上@Transactional后置处理: Resuming suspended transaction after completion of inner transaction, 执行commit
+        test_requiredNew 方法上 @Transactional 前置处理：开启“事务”
+        test_requiredNew 方法执行..., 如果发生异常，test_requiredNew 方法上 @Transactional 后置处理：执行 rollback
+        调用 method_requiredNew 方法：
+            method_requiredNew 方法上 @Transactional 前置处理：Suspending current transaction, creating new transaction
+            method_requiredNew 方法代码执行，没有抛出异常
+            method_requiredNew 方法上 @Transactional 后置处理：执行 commit
+        test_requiredNew 方法执行... 如果发生异常, test_requiredNew 方法上 @Transactional 后置处理：执行 rollback
+        test_requiredNew 方法上 @Transactional 后置处理: Resuming suspended transaction after completion of inner transaction, 执行 commit
          */
         txTestTwoService.method_requiredNew();
 
@@ -105,14 +105,14 @@ public class TxTestOneServiceImpl extends ServiceImpl<TxTestOneMapper, TxTestOne
 
         //4. 调用目标方法，该方法上声明了 @Transactional with propagation = Propagation.REQUIRES_NEW, 目标方法抛出异常
         /*
-        test_transactional方法上@Transactional前置处理：开启“事务”
-        test_transactional方法执行..., 如果发生异常，test_transactional方法上@Transactional后置处理：执行rollback
-        调用method_requiredNew_e方法：
-            method_requiredNew_e方法上@Transactional前置处理：Suspending current transaction, creating new transaction
-            method_requiredNew_e方法代码执行，抛出"异常1"
-            method_requiredNew_e方法上@Transactional后置处理：执行rollback
-        如果test_transactional方法不捕获"异常1", "异常1"向上抛，那么test_transactional方法上@Transactional后置处理：执行rollback并且抛出"异常1"
-        如果test_transactional方法捕获"异常1", test_transactional方法上@Transactional后置处理：Resuming suspended transaction after completion of inner transaction，执行commit
+        test_requiredNew_e 方法上 @Transactional 前置处理：开启“事务”
+        test_requiredNew_e 方法执行..., 如果发生异常，test_requiredNew_e 方法上 @Transactional 后置处理：执行 rollback
+        调用 method_requiredNew_e 方法：
+            method_requiredNew_e 方法上 @Transactional 前置处理：Suspending current transaction, creating new transaction
+            method_requiredNew_e 方法代码执行，抛出"异常1"
+            method_requiredNew_e 方法上 @Transactional 后置处理：执行 rollback
+        method_requiredNew_e 方法不捕获"异常1", "异常1"向上抛，那么 method_requiredNew_e 方法上 @Transactional 后置处理：执行 rollback 并且抛出"异常1"
+        method_requiredNew_e 方法捕获"异常1", method_requiredNew_e 方法上 @Transactional 后置处理：Resuming suspended transaction after completion of inner transaction，执行 commit
          */
         try {
             txTestTwoService.method_requiredNew_e();
@@ -132,14 +132,14 @@ public class TxTestOneServiceImpl extends ServiceImpl<TxTestOneMapper, TxTestOne
 
         //5. 调用目标方法，该方法上声明了 @Transactional with propagation = Propagation.NESTED, 目标方法未抛出异常
         /*
-        test_transactional方法上@Transactional前置处理：开启“事务”
-        test_transactional方法执行..., 如果发生异常，test_transactional方法上@Transactional后置处理：执行rollback
-        调用method_nested方法：
-            method_nested方法上@Transactional前置处理：Creating nested transaction
-            method_nested方法代码执行，没有抛出异常
-            method_nested方法上@Transactional后置处理：Releasing transaction savepoint(nested事务commit状态，未提交)
-        test_transactional方法执行... 如果发生异常, test_transactional方法上@Transactional后置处理：执行rollback，同时rollback nested
-        test_transactional方法上@Transactional后置处理: 执行commit, 同时commit nested
+        test_nested 方法上 @Transactional 前置处理：开启“事务”
+        test_nested 方法执行..., 如果发生异常，test_nested 方法上 @Transactional 后置处理：执行 rollback
+        调用 method_nested 方法：
+            method_nested 方法上 @Transactional 前置处理：Creating nested transaction
+            method_nested 方法代码执行，没有抛出异常
+            method_nested 方法上 @Transactional 后置处理：Releasing transaction savepoint(nested 事务 commit 状态，未提交)
+        test_nested 方法执行... 如果发生异常, test_nested 方法上 @Transactional 后置处理：执行 rollback，同时 rollback nested
+        test_nested 方法上 @Transactional 后置处理: 执行 commit, 同时 commit nested
          */
         txTestTwoService.method_nested();
 
@@ -155,14 +155,14 @@ public class TxTestOneServiceImpl extends ServiceImpl<TxTestOneMapper, TxTestOne
 
         //6. 调用目标方法，该方法上声明了 @Transactional with propagation = Propagation.NESTED, 目标方法抛出异常
         /*
-        test_transactional方法上@Transactional前置处理：开启“事务”
-        test_transactional方法执行..., 如果发生异常，test_transactional方法上@Transactional后置处理：执行rollback
-        调用method_nested_e方法：
-            method_nested_e方法上@Transactional前置处理：Creating nested transaction
-            method_nested_e方法代码执行，抛出"异常1"
-            method_nested_e方法上@Transactional后置处理：Rolling back transaction to savepoint(nested事务rollback状态，未回滚)
-        如果test_transactional方法不捕获"异常1", "异常1"向上抛，那么test_transactional方法上@Transactional后置处理：执行rollback同时rollback nested并且抛出"异常1"
-        如果test_transactional方法捕获"异常1", test_transactional方法上@Transactional后置处理：执行commit, 同时rollback nested
+        test_nested_e 方法上 @Transactional 前置处理：开启“事务”
+        test_nested_e 方法执行..., 如果发生异常，test_nested_e 方法上 @Transactional 后置处理：执行 rollback
+        调用 method_nested_e 方法：
+            method_nested_e 方法上 @Transactional 前置处理：Creating nested transaction
+            method_nested_e 方法代码执行，抛出"异常1"
+            method_nested_e 方法上 @Transactional 后置处理：Rolling back transaction to savepoint(nested 事务 rollback 状态，未回滚)
+        如果 test_nested_e 方法不捕获"异常1", "异常1"向上抛，那么 test_nested_e 方法上 @Transactional 后置处理：执行 rollback 同时 rollback nested 并且抛出"异常1"
+        如果 test_nested_e 方法捕获"异常1", test_nested_e 方法上 @Transactional 后置处理：执行 commit, 同时 rollback nested
          */
         try {
             txTestTwoService.method_nested_e();
@@ -176,33 +176,33 @@ public class TxTestOneServiceImpl extends ServiceImpl<TxTestOneMapper, TxTestOne
 
     @Transactional
     @Override
-    public void test_inline() { //使用this调用此service中方法
+    public void test_inline() { //使用 this 调用此 service 中方法
         log.info("test_inline");
         TxTestOne txTestOne = TxTestOne.builder().txName("test_inline").txTime(LocalDateTime.now()).txType(TxTypeEnum.ONE_REQUIRED).build();
         this.save(txTestOne);
 
-        System.out.println("this是否是AopProxy: " + AopUtils.isAopProxy(this)); //false
-        System.out.println("this是否是JdkProxy: " + AopUtils.isJdkDynamicProxy(this)); //false
-        System.out.println("this是否是CglibProxy: " + AopUtils.isCglibProxy(this)); //false
+        System.out.println("this 是否是 AopProxy: " + AopUtils.isAopProxy(this)); //false
+        System.out.println("this 是否是 JdkProxy: " + AopUtils.isJdkDynamicProxy(this)); //false
+        System.out.println("this 是否是 CglibProxy: " + AopUtils.isCglibProxy(this)); //false
 
-        //1、此this是被代理对象, 方法上面的@Transactional注解不会触发
+        //1、此 this 是被代理对象, 方法上面的 @Transactional 注解不会触发
         //this.test_inline_required();
         //this.test_inline_requiredNew();
 
-        //获取this的代理对象
+        //获取 this 的代理对象
         TxTestOneServiceImpl proxy_of_this = applicationContextCatch.getBean(TxTestOneServiceImpl.class);
         System.out.println(proxy_of_this.equals(this));  //false
 
-        //2、使用代理对象调用 test_inline_requiredNew 方法, 触发@Transactional
+        //2、使用代理对象调用 test_inline_requiredNew 方法, 触发 @Transactional
         //   Suspending current transaction, creating new transaction with name "test_inline_requiredNew",
         //   "test_inline_requiredNew" commit or rollback, Resuming suspended transaction after completion of inner transaction
         proxy_of_this.test_inline_requiredNew();
 
-        //3、使用代理对象调用 test_inline_required 方法, 触发@Transactional
+        //3、使用代理对象调用 test_inline_required 方法, 触发 @Transactional
         //   Participating in existing transaction
         proxy_of_this.test_inline_required();
 
-        //4、使用代理对象调用 test_inline_nested 方法, 触发@Transactional
+        //4、使用代理对象调用 test_inline_nested 方法, 触发 @Transactional
         //   Creating nested transaction
         proxy_of_this.test_inline_nested();
 
