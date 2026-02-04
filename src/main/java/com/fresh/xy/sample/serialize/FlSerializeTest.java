@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fresh.common.exception.BizException;
-import com.fresh.common.utils.JacksonUtils;
-import com.fresh.common.utils.ReflectUtils;
+import com.fresh.core.exception.BizException;
+import com.fresh.core.utils.JacksonUtils;
+import com.fresh.core.utils.ReflectUtils;
 import com.fresh.xy.redis.enums.ForRedisTestPojoAnoEnum;
 import com.fresh.xy.redis.enums.ForRedisTestPojoEnum;
 

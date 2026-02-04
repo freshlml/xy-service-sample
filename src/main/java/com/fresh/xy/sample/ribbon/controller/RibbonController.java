@@ -1,6 +1,6 @@
 package com.fresh.xy.sample.ribbon.controller;
 
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.result.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;

@@ -1,6 +1,6 @@
 package com.fresh.xy.sample.controller.rmq;
 
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.result.JsonResult;
 import com.fresh.xy.sample.service.scan.SampleScanService;
 import com.fresh.xy.sample.dto.scan.SampleScanAddDto;
 import lombok.extern.slf4j.Slf4j;

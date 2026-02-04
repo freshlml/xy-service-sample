@@ -1,6 +1,6 @@
 package com.fresh.xy.sample.hystrix.controller;
 
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.result.JsonResult;
 import com.fresh.xy.sample.hystrix.FlHystrixCommandSample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

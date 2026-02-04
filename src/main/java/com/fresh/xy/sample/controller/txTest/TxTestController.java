@@ -1,6 +1,6 @@
 package com.fresh.xy.sample.controller.txTest;
 
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.result.JsonResult;
 import com.fresh.xy.sample.service.txTest.TxTestOneService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

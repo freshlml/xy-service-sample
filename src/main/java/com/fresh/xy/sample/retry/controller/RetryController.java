@@ -1,7 +1,7 @@
 package com.fresh.xy.sample.retry.controller;
 
-import com.fresh.common.exception.BizException;
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.exception.BizException;
+import com.fresh.core.result.JsonResult;
 import com.fresh.xy.sample.retry.FlRetrySample;
 import com.fresh.xy.sample.dto.scan.SampleScanAddDto;
 import com.fresh.xy.sample.dto.scan.SampleScanUpdateDto;

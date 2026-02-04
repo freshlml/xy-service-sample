@@ -1,7 +1,7 @@
 package com.fresh.xy.sample.controller.redis;
 
 
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.result.JsonResult;
 import com.fresh.xy.redis.dto.ForRedissonTestPojoDto;
 import com.fresh.xy.redis.enums.ForRedisTestPojoDtoEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,6 @@ import org.redisson.api.RBucket;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.RedissonReactiveClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

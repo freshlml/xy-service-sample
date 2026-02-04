@@ -1,9 +1,9 @@
 package com.fresh.xy.sample.controller.redis;
 
 
-import com.fresh.common.exception.BizException;
-import com.fresh.common.result.JsonResult;
-import com.fresh.common.utils.ReflectUtils;
+import com.fresh.core.exception.BizException;
+import com.fresh.core.result.JsonResult;
+import com.fresh.core.utils.ReflectUtils;
 import com.fresh.xy.redis.config.FlCustomSerializer;
 import com.fresh.xy.redis.dto.ForTestPojo2RedisDto;
 import com.fresh.xy.redis.dto.ForRedisTestDelDto;
@@ -11,7 +11,6 @@ import com.fresh.xy.redis.enums.ForRedisTestPojoDtoEnum;
 import com.fresh.xy.sample.serialize.FlSerializeTest;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 

@@ -2,8 +2,8 @@ package com.fresh.xy.sample.service.scan.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fresh.common.exception.BizException;
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.exception.BizException;
+import com.fresh.core.result.JsonResult;
 import com.fresh.xy.common.constants.RmqConstants;
 import com.fresh.xy.mbp.utils.MybatisPlusPageUtils;
 import com.fresh.xy.redis.config.FlCustomSerializer;

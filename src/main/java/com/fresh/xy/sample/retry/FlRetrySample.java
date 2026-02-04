@@ -1,6 +1,6 @@
 package com.fresh.xy.sample.retry;
 
-import com.fresh.common.exception.BizException;
+import com.fresh.core.exception.BizException;
 import com.fresh.xy.sample.entity.scan.SampleScan;
 import com.fresh.xy.sample.dto.scan.SampleScanAddDto;
 import com.fresh.xy.sample.service.scan.SampleScanService;

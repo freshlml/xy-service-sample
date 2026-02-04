@@ -1,10 +1,9 @@
 package com.fresh.xy.sample.controller.rmq;
 
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.result.JsonResult;
 import com.fresh.xy.rmq.tx.entity.RmqTx;
 import com.fresh.xy.rmq.tx.service.RmqTxService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

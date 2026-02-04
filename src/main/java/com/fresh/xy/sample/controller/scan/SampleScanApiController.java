@@ -1,6 +1,6 @@
 package com.fresh.xy.sample.controller.scan;
 
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.result.JsonResult;
 import com.fresh.xy.sample.api.bo.SampleScanBo;
 import com.fresh.xy.sample.entity.scan.SampleScan;
 import com.fresh.xy.sample.service.scan.SampleScanService;

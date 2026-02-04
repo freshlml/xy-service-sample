@@ -1,6 +1,6 @@
 package com.fresh.xy.sample.controller.seata;
 
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.result.JsonResult;
 import com.fresh.xy.sample.dto.scan.SampleScanAddDto;
 import com.fresh.xy.sample.service.seata.SeataTestService;
 import lombok.extern.slf4j.Slf4j;
