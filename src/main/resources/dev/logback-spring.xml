@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-    <property name="project-name" value="service-sample"/>
+    <property name="project-name" value="xy-service-sample"/>
     <!--<springProperty scope="context" name="springApplicationName" source="spring.application.name" defaultValue="service-sample2"/>-->
     <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
