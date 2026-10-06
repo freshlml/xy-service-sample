@@ -31,6 +31,17 @@ public class SeataTestController {
         return JsonResult.buildSuccessResult("保存成功");
     }
 
+    @PostMapping("test1_1")
+    public JsonResult<?> test1_1(@RequestBody @Valid SampleScanAddDto scanAddDto) {
+        try {
+            seataTestService.seataTxTest1_1(scanAddDto);
+        } catch(Exception e) {
+            log.error(e.getMessage());
+            return JsonResult.buildFailedResult("保存失败");
+        }
+        return JsonResult.buildSuccessResult("保存成功");
+    }
+
     @PostMapping("test2")
     public JsonResult<?> test2(@RequestBody @Valid SampleScanAddDto scanAddDto) {
         try {

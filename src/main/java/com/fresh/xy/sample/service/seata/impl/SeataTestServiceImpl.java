@@ -43,6 +43,21 @@ public class SeataTestServiceImpl implements SeataTestService {
 
     @GlobalTransactional
     @Override
+    public void seataTxTest1_1(SampleScanAddDto scanAddDto) {
+        //一个本地事务注册一个分支事务（一次 connection#commit() 对应一个分支事务）
+        sampleScanService.saveScan(scanAddDto);
+    }
+
+    /*
+    * 如下叠加的写法，如果能保证"全局事务"的范围比"本地事务"大是没有问题的。然而事实是不一定...
+    * @GlobalTransactional
+    * @Transactional
+    * public void save()
+    */
+
+
+    @GlobalTransactional
+    @Override
     public void seataTxTest2(SampleScanAddDto scanAddDto) {
         SampleScan sampleScan = SampleScan.builder().name(scanAddDto.getName()).scanType(scanAddDto.getScanType()).scanTime(scanAddDto.getScanTime()).build();
         sampleScanService.save(sampleScan);

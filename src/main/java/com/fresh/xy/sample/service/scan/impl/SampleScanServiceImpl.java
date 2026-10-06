@@ -188,4 +188,20 @@ public class SampleScanServiceImpl extends ServiceImpl<SampleScanMapper, SampleS
     }
 
 
+    @Transactional
+    @Override
+    public void saveScan(SampleScanAddDto scanAddDto) {
+        SampleScan sampleScan = SampleScan.builder().name(scanAddDto.getName()).scanType(scanAddDto.getScanType()).scanTime(scanAddDto.getScanTime()).build();
+        sampleScanMapper.insert(sampleScan);
+        sampleScan.setName(sampleScan.getName() + "_____随机名称");
+        sampleScan.setId(null);
+        sampleScanMapper.insert(sampleScan);
+
+        Sample2ScanAddBo scanAddBo = Sample2ScanAddBo.builder().name(scanAddDto.getName()).scanType(scanAddDto.getScanType()).scanTime(scanAddDto.getScanTime()).build();
+        JsonResult<?> result = sample2ServiceApi.save(scanAddBo);
+        if(!result.getSuccess())
+            throw new BizException(() -> "RPC 调用失败(真失败，假失败), 抛出异常，致全局事务回滚");
+    }
+
+
 }

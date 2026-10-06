@@ -20,4 +20,6 @@ public interface SampleScanService extends IService<SampleScan> {
     boolean txSend(SampleScanAddDto scanDto);
 
     boolean txSendCus(SampleScanAddDto scanDto);
+
+    void saveScan(SampleScanAddDto scanAddDto);
 }
