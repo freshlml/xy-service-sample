@@ -49,12 +49,17 @@ public class SeataTestServiceImpl implements SeataTestService {
     }
 
     /*
-    * 如下叠加的写法，如果能保证"全局事务"的范围比"本地事务"大是没有问题的。然而事实是不一定...
-    * @GlobalTransactional
-    * @Transactional
-    * public void save()
-    */
-
+     * 可以在 service 层（@Transactional）写方法，然后加上 @GlobalTransactional，明确其有多少分支事务（注意 @Transactional 的情况）
+     *
+     * 一个类中多个方法分别单独含有 @Transactional，@GlobalTransactional 互不影响
+     *
+     * 如下叠加的写法，如果能保证"全局事务"的范围比"本地事务"大是没有问题的。然而事实是不一定...
+     *   @GlobalTransactional
+     *   @Transactional
+     *   public void save()
+     *
+     * 可以在 service 层包装一层使用 @GlobalTransactional，在 service 层使用 @Transactional
+     */
 
     @GlobalTransactional
     @Override
